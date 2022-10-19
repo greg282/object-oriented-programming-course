@@ -5,9 +5,10 @@ public class World {
         System.out.println("system wystartowal");
 
 
+        /* kod z lab1
         Direction[] directions = conversion(args);
         run(directions);
-
+        */
         System.out.println("system zakonczyl dzialanie");
     }
 
