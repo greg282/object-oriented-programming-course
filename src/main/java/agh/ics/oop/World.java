@@ -2,14 +2,14 @@ package agh.ics.oop;
 
 public class World {
     public static void main(String[] args) {
-        System.out.println("system wystartowal");
+        Animal animal1 = new Animal();
+        OptionsParser optionsParser = new OptionsParser();
+        MoveDirection[] moveDirections = optionsParser.parse(args);
+        for (MoveDirection var:moveDirections){
+            animal1.move(var);
+        }
 
-
-        /* kod z lab1
-        Direction[] directions = conversion(args);
-        run(directions);
-        */
-        System.out.println("system zakonczyl dzialanie");
+        System.out.println(animal1);
     }
 
     public static void run(Direction[] directions){
