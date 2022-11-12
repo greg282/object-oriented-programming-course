@@ -5,13 +5,28 @@ import java.util.Objects;
 public class Animal {
     private Vector2d position = new Vector2d(2,2);
     private MapDirection mapDirection =MapDirection.NORTH;
+    private IWorldMap map=null;
+
+    /*Bezparemetrowy konstruktor nie będzie miał sensu, ponieważ będziemy korzystać z pola map które w takim
+    wywołaniu będzie nullem. Możemy uprościć ustawiając wartośći domyślne w przypadku nie podania argumentu*/
+    public Animal(IWorldMap map, Vector2d initialPosition){
+        this.map=map;
+        this.position=initialPosition;
+    }
+    public Animal(IWorldMap map){
+        this.map=map;
+    }
+
+    public  Animal(){}
 
     @Override
     public String toString() {
-        return "Animal {" +
-                "position=" + position +
-                ", mapDirection=" + mapDirection +
-                '}';
+        return switch ((this.mapDirection)){
+            case NORTH -> "N";
+            case SOUTH -> "S";
+            case WEST -> "W";
+            case EAST -> "E";
+        };
     }
 
     public boolean isAt(Vector2d position){
@@ -22,8 +37,21 @@ public class Animal {
         switch(direction){
             case RIGHT -> this.mapDirection = this.mapDirection.next();
             case LEFT -> this.mapDirection = this.mapDirection.previous();
-            case FORWARD-> this.position = check_bounds_forward();
-            case BACKWARD -> this.position=check_bounds_backward();
+
+            case FORWARD ->{
+                if(map.canMoveTo(this.position.add(this.mapDirection.toUnitVector()))) {
+                    map.clearPlace(this.position);
+                    this.position=this.position.add(this.mapDirection.toUnitVector());
+                    map.place(this);
+                }
+            }
+            case BACKWARD -> {
+                if( map.canMoveTo(this.position.subtract(this.mapDirection.toUnitVector())) ) {
+                    map.clearPlace(this.position);
+                    this.position=this.position.subtract(this.mapDirection.toUnitVector());
+                    map.place(this);
+                }
+            }
         }
     }
 
@@ -57,6 +85,9 @@ public class Animal {
     @Override
     public int hashCode() {
         return Objects.hash(position, mapDirection);
+    }
+    public Vector2d getPosition(){
+        return this.position;
     }
 
     public boolean direction_equals(MapDirection direction){/*funkjca pomocnicza do testów*/

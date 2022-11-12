@@ -2,14 +2,12 @@ package agh.ics.oop;
 
 public class World {
     public static void main(String[] args) {
-        Animal animal1 = new Animal();
-        OptionsParser optionsParser = new OptionsParser();
-        MoveDirection[] moveDirections = optionsParser.parse(args);
-        for (MoveDirection var:moveDirections){
-            animal1.move(var);
-        }
-
-        System.out.println(animal1);
+        MoveDirection[] directions = new OptionsParser().parse(args);
+        IWorldMap map = new RectangularMap(10, 5);
+        Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
+        IEngine engine = new SimulationEngine(directions, map, positions);
+        engine.run();
+        System.out.println(map.toString());
     }
 
     public static void run(Direction[] directions){
