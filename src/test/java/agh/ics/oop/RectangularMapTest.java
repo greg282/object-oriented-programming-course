@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RectangularMapTest {
 
+    /*lab5 tests*/
     @Test
     void canMoveTo() {
         MoveDirection[] directions = new OptionsParser().parse(new String[]{"f","b","f","b"});

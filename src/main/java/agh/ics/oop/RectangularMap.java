@@ -2,13 +2,20 @@ package agh.ics.oop;
 
 import java.util.Map;
 
+public class RectangularMap extends AbstractWorldMap{
+    public RectangularMap(int width,int height){
+        super(width,height);
+    }
+}
+
+/* before  abstract
 public class RectangularMap implements IWorldMap{
     private int width;
     private int height;
 
     private MapVisualizer visualizer;
 
-    private Animal[][] animalsMap;
+    private Object[][] animalsMap;
 
     public RectangularMap(int width,int height){
         this.width=width;
@@ -58,3 +65,5 @@ public class RectangularMap implements IWorldMap{
 
 
 }
+
+ */
