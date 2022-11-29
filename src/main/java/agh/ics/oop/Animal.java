@@ -1,8 +1,11 @@
 package agh.ics.oop;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Animal extends AbstractWorldMapElement {
+    private final List<IPositionChangeObserver> observers = new ArrayList<>();
 
     private MapDirection mapDirection =MapDirection.NORTH;
     private IWorldMap map=null;
@@ -12,10 +15,12 @@ public class Animal extends AbstractWorldMapElement {
     public Animal(IWorldMap map, Vector2d initialPosition){
         this.map=map;
         this.position=initialPosition;
+        addObserver((IPositionChangeObserver) this.map);
     }
     public Animal(IWorldMap map){
         this.map=map;
         this.position=new Vector2d(2,2);
+        addObserver((IPositionChangeObserver) this.map);
     }
 
     public  Animal(){
@@ -41,16 +46,20 @@ public class Animal extends AbstractWorldMapElement {
 
             case FORWARD ->{
                 if(map.canMoveTo(this.position.add(this.mapDirection.toUnitVector()))) {
-                    map.clearPlace(this.position);
+                    //map.clearPlace(this.position);
+                    Vector2d old_pos=this.position;
                     this.position=this.position.add(this.mapDirection.toUnitVector());
-                    map.place(this);
+                    //map.place(this);
+                    positionChanged(old_pos);
                 }
             }
             case BACKWARD -> {
                 if( map.canMoveTo(this.position.subtract(this.mapDirection.toUnitVector())) ) {
-                    map.clearPlace(this.position);
+                    //map.clearPlace(this.position);
+                    Vector2d old_pos=this.position;
                     this.position=this.position.subtract(this.mapDirection.toUnitVector());
-                    map.place(this);
+                    //map.place(this);
+                    positionChanged(old_pos);
                 }
             }
         }
@@ -95,5 +104,18 @@ public class Animal extends AbstractWorldMapElement {
 
     public boolean position_equals(Vector2d vector2d){/*funkjca pomocnicza do testów*/
         return this.position.equals(vector2d);
+    }
+    void addObserver(IPositionChangeObserver observer){
+        this.observers.add(observer);
+    }
+
+    void removeObserver(IPositionChangeObserver observer){
+        this.observers.remove(observer);
+    }
+
+    void positionChanged(Vector2d position) {
+        for (IPositionChangeObserver observer: this.observers) {
+            observer.positionChanged(position,this.position);
+        }
     }
 }

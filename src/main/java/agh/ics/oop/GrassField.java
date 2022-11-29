@@ -1,6 +1,8 @@
 package agh.ics.oop;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class GrassField extends AbstractWorldMap{
     private static final int range=1000;
@@ -9,26 +11,26 @@ public class GrassField extends AbstractWorldMap{
     public GrassField(int n_of_fields,Vector2d[] positions){
         super(range,range);
 
-        this.map=new Object[range][range];
+
+
         int pos_x,pos_y;
 
         for(Vector2d var:positions){
-            map[var.y][var.x]=new Object();//rezerwacja miejsc dla Animal w SimulationEngine
+            map.put(var,new Object());//rezerwacja miejsc dla Animal w SimulationEngine
         }
 
         for(int i=0;i<n_of_fields;i++){
             pos_x=(int) ((Math.random() * (Math.sqrt(n_of_fields*10) - 0)) + 0);
             pos_y=(int) ((Math.random() * (Math.sqrt(n_of_fields*10) - 0)) + 0);
-            while(map[pos_x][pos_y]!=null){
+            while(map.get(new Vector2d(pos_x,pos_y))!=null){
                 pos_x=(int) ((Math.random() * (Math.sqrt(n_of_fields*10) - 0)) + 0);
                 pos_y=(int) ((Math.random() * (Math.sqrt(n_of_fields*10) - 0)) + 0);
             }
-
-            map[pos_y][pos_x]=new Grass(new Vector2d(pos_x,pos_y));
+            map.put(new Vector2d(pos_x,pos_y),new Grass(new Vector2d(pos_x,pos_y)));
         }
 
         for(Vector2d var:positions){
-            map[var.y][var.x]=null;
+            map.remove(var);
         }
 
     }
