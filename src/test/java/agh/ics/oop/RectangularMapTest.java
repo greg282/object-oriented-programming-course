@@ -30,8 +30,8 @@ class RectangularMapTest {
         engine.run();
         Assertions.assertTrue(map.place(new Animal(map,new Vector2d(2,2))));
         Assertions.assertTrue(map.place(new Animal(map,new Vector2d(0,0))));
-        Assertions.assertFalse(map.place(new Animal(map,new Vector2d(2,4))));
-        Assertions.assertFalse(map.place(new Animal(map,new Vector2d(3,2))));
+        Assertions.assertThrows(IllegalArgumentException.class,()->map.place(new Animal(map,new Vector2d(2,4))));//lab7
+        Assertions.assertThrows(IllegalArgumentException.class,()->map.place(new Animal(map,new Vector2d(3,2))));//lab7
     }
 
     @Test

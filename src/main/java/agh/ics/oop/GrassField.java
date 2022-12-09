@@ -27,6 +27,7 @@ public class GrassField extends AbstractWorldMap{
                 pos_y=(int) ((Math.random() * (Math.sqrt(n_of_fields*10) - 0)) + 0);
             }
             map.put(new Vector2d(pos_x,pos_y),new Grass(new Vector2d(pos_x,pos_y)));
+            mapBoundary.add_position(new Vector2d(pos_x,pos_y));
         }
 
         for(Vector2d var:positions){
@@ -34,6 +35,7 @@ public class GrassField extends AbstractWorldMap{
         }
 
     }
+
 
 }
 

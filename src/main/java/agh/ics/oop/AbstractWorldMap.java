@@ -13,7 +13,7 @@ abstract public class AbstractWorldMap implements IWorldMap,IPositionChangeObser
     //protected Object[][] map;
 
     protected Map<Vector2d, Object> map;
-
+    protected MapBoundary mapBoundary=new MapBoundary();
 
     public AbstractWorldMap(int width,int height){
         this.width=width;
@@ -36,20 +36,32 @@ abstract public class AbstractWorldMap implements IWorldMap,IPositionChangeObser
     public boolean place(Animal animal) {
         if(!isOccupied(animal.getPosition())){
             map.put(animal.getPosition(),animal);
+            mapBoundary.add_position(animal.getPosition());
            //map[animal.getPosition().y][animal.getPosition().x]=animal;
             return true;
         }
-        return false;
+        else {
+            throw new IllegalArgumentException(animal.getPosition() + "field is occupied");
+        }
+
     }
 
     @Override
-    public String toString(){//to nie bedzie dzialac na hashmapie
+    public String toString(){
+        /*
         map.forEach((key,value)->{
             if(value!=null){
                 updateCorners(key.x, key.y);
             }
         });
         return visualizer.draw(new Vector2d(min_x,min_y),new Vector2d(max_x,max_y));
+
+         */
+        return visualizer.draw(mapBoundary.getlowerleft_corner(),mapBoundary.getuppperright_corner());
+    }
+
+    public MapBoundary getBorders(){
+        return this.mapBoundary;
     }
 
     @Override

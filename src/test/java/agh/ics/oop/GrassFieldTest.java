@@ -29,7 +29,7 @@ class GrassFieldTest {
         IEngine engine = new SimulationEngine(directions, map, positions);
         engine.run();
         Assertions.assertTrue(map.place(new Animal(map,new Vector2d(997,997))));
-        Assertions.assertFalse(map.place(new Animal(map,new Vector2d(10,10))));
+        Assertions.assertThrows(IllegalArgumentException.class,()-> map.place(new Animal(map,new Vector2d(10,10))));//lab7
         Assertions.assertTrue(map.place(new Animal(map,new Vector2d(889,999))));
 
     }

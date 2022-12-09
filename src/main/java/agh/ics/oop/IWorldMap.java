@@ -47,4 +47,6 @@ public interface IWorldMap {
     Object objectAt(Vector2d position);
 
     void clearPlace(Vector2d position);
+
+    public MapBoundary getBorders();
 }

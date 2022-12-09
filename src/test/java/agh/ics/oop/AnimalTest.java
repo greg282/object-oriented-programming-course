@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 
 class AnimalTest {
+    /*no longer used due to changes in previous labs
     @Test
     public void test_orientaion(){
         Assertions.assertTrue(test_util(new Animal(),new String[]{"r", "r", "r", "r"}).direction_equals(MapDirection.NORTH));
@@ -51,5 +52,5 @@ class AnimalTest {
                 MoveDirection.LEFT}, new OptionsParser().parse(new String[]{"r", "f", "abcdef", "b", "l", "2137"}));
 
     }
-
+    */
 }
