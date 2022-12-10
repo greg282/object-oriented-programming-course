@@ -9,8 +9,8 @@ public class MapBoundary implements IPositionChangeObserver{
 
 
     void clear_position(Vector2d pos){
-        elementsByX.remove(pos.x);
-        elementsByY.remove(pos.y);
+        elementsByX.remove(pos);
+        elementsByY.remove(pos);
     }
     void add_position(Vector2d pos){
         elementsByY.put(pos, pos.y);

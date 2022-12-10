@@ -25,7 +25,7 @@ abstract public class AbstractWorldMap implements IWorldMap,IPositionChangeObser
     }
     @Override
     public boolean canMoveTo(Vector2d position) {
-        if(position.y>=0 && position.y<height && position.x>=0 && position.x<width ){
+        if(position.y<height &&  position.x<width ){
             return map.get(position)==null;
         }
 
@@ -82,6 +82,8 @@ abstract public class AbstractWorldMap implements IWorldMap,IPositionChangeObser
     @Override
     public void positionChanged(Vector2d oldPosition, Vector2d newPosition){
         map.put(newPosition,map.remove(oldPosition));
+        mapBoundary.clear_position(oldPosition);
+        mapBoundary.add_position(newPosition);
     }
 
 

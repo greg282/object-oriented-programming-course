@@ -50,7 +50,7 @@ public class Animal extends AbstractWorldMapElement {
                     Vector2d old_pos=this.position;
                     this.position=this.position.add(this.mapDirection.toUnitVector());
                     //map.place(this);
-                    positionChanged(old_pos);
+                    positionChange(old_pos);
                 }
             }
             case BACKWARD -> {
@@ -59,7 +59,7 @@ public class Animal extends AbstractWorldMapElement {
                     Vector2d old_pos=this.position;
                     this.position=this.position.subtract(this.mapDirection.toUnitVector());
                     //map.place(this);
-                    positionChanged(old_pos);
+                    positionChange(old_pos);
                 }
             }
         }
@@ -113,9 +113,24 @@ public class Animal extends AbstractWorldMapElement {
         this.observers.remove(observer);
     }
 
-    void positionChanged(Vector2d position) {
+    void positionChange(Vector2d position) {
         for (IPositionChangeObserver observer: this.observers) {
             observer.positionChanged(position,this.position);
         }
+    }
+
+    @Override
+    public String getPath() {
+        return switch ((this.mapDirection)){
+            case NORTH -> "/src/main/resources/up.png";
+            case SOUTH -> "/src/main/resources/down.png";
+            case WEST -> "/src/main/resources/left.png";
+            case EAST -> "/src/main/resources/right.png";
+        };
+    }
+
+    @Override
+    public String getLabel() {
+        return "Z("+this.position.x+","+this.position.y+")";
     }
 }
